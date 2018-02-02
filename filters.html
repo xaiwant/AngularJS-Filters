@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <title>Angular JS Tutorial- Filters</title>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.min.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <link rel="stylesheet" type="text/css" href="filters.css">
+      <!-- Angular app linking -->
+      <script type = "text/javascript" src="filters.js"></script> 
+   </head>
+   <!-- Custom App Declaration-->
+   <body ng-app="myApp">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+         <div class="container">
+            <img src="logo.png" alt="Valuebound Inc">
+         </div>
+      </nav>
+      <!-- Page Content -->
+      <div class="container">
+         <div ng-controller="myCtrl">
+            <div class="row">
+               <div class="col-md-4">
+                  <h3>Uppercase</h3>
+                  <!-- format the data in Uppercase. -->
+                  <ul>
+                     <li ng-repeat= "n in name"> {{n | uppercase}}</li>
+                  </ul>
+               </div>
+               <div class="col-md-4">
+                  <h3>Lowercase</h3>
+                  <!-- format the data in Lowercase. -->				
+                  <ol>
+                     <li ng-repeat= "pl in player"> {{pl.name | lowercase}}</li>
+                  </ol>
+               </div>
+               <div class="col-md-4">
+                  <h3>Orderby</h3>
+                  <!-- sorting the data based on specific item -->				
+                  <ol>
+                     <li ng-repeat= "pl in player | orderBy:'location'"> {{pl.name+','+pl.location}}</li>
+                  </ol>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-4">
+                  <h3>Number</h3>
+                  <!-- limit the number rendering after decimal place. -->
+                  {{ accuracy | number : 2}}
+                  <br>
+                  {{ 798778764324567876543568987656787654307.677876543 | number}}
+               </div>
+               <div class="col-md-4">
+                  <h3>Date</h3>
+                  <!-- format the data as per human readable format. -->
+                  {{ timestmp | date:'short'}}
+                  <br>
+                  <!-- time is in millisecond -->
+                  {{ 1288333823032 | date:'fullDate': 'MST'}}
+                  <br>
+                  {{ 1261323623006 | date:'yyyy-MM-dd HH:mm:ss Z'}}
+               </div>
+               <div class="col-md-4">
+                  <h3>Currency</h3>
+                  <!-- Add prefix in your currency. -->
+                  <span>{{2982| currency: "INR" }} </span>
+                  <br>
+                  <!-- time is in millisecond -->
+                  <span>{{4230 | currency: "$" }} </span>
+                  <br>
+                  <span>{{786720 | currency: "GBP" }} </span>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-4">
+                  <!-- from given set of array we are trying to find out person having letter 'i' in his name & gender is 'f'-->
+                  <h3>Filter</h3>
+                  <!-- filter the output based on user input or specifc value -->
+                  <h6>Array list</h6>
+                  <ol>
+                     <li ng-repeat="person in details">{{person.name}},{{person.gender}} </li>
+                  </ol>
+                  </br></br>
+                  <h6>Filtered value:</h6>
+                  <ul>
+                     <li ng-repeat="person in details | filter: {name:'i', gender:'f'}"  >{{person.name}},{{person.gender}} </li>
+                  </ul>
+               </div>
+               <div class="col-md-4">
+                  <h3>Json</h3>
+                  <!-- Json indentation format-->
+                  <pre>{{ student | json: 2}}</pre>
+                  <pre>{{ student | json: 10}}</pre>
+                  <pre>{{ student | json: 5}}</pre>
+               </div>
+               <div class="col-md-4">
+                  <h3>LimitTo</h3>
+                  <!-- returns a string or array having specific number of elements -->
+                  <ul>
+                     <li ng-repeat="x in name | limitTo : 3: -3">{{x}}</li>
+                  </ul>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-12">
+                  <h3>Filter with Dynamic value</h3>
+                  Name:<input ng-model="filterName"/>
+                  Gender:<input ng-model="filterGender"/> </br></br>
+                  <table class="table table-striped table-bordered">
+                     <thead>
+                        <tr>
+                           <td>Name</td>
+                           <td>Gender</td>
+                        </tr>
+                     </thead>
+                     <tr ng-repeat="user in details | filter: {name:filterName, gender: filterGender}">
+                        <td>{{user.name}}</td>
+                        <td>{{user.gender}}</td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>
